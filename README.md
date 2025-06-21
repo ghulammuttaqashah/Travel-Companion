@@ -1,156 +1,158 @@
 # ✈️ Travel Companion App (MERN): Your All-in-One Travel Assistant
 
-Travel Companion is a user-friendly web app designed to make traveling easier and more organized. With features like a Weather Checker, Currency Converter, and Expense Tracker, travelers can manage important travel tasks in one place — all while staying logged in securely.
+**Travel Companion** is a full-stack web application designed to assist travelers by combining useful tools like a Weather Checker, Currency Converter, and Expense Tracker — all in one place. Users can register, log in, and securely access all features to manage their travel needs with ease.
 
 ---
 
 ## 🌟 Features
 
 ### 🌍 1. User Authentication
-- Register/Login using name (only during register), email, and password
-- Secure authentication with JWT tokens
-- Protected routes with session management
+- Register/Login using name, email, and password
+- Secure JWT-based session management
+- Protected routes for authorized users
 
-### 🌦️ 2. Weather Module (OpenWeather API)
-- Search and display current weather for any city
-- Save favorite cities for quick access
-- View & delete saved favorite cities
+### 🌦️ 2. Weather Module (OpenWeatherMap API)
+- Search and view current weather by city
+- Save favorite cities
+- View and delete saved cities
 
 ### 💱 3. Currency Converter (ExchangeRate API)
-- Real-time currency conversion between any two currencies
+- Convert between any two currencies in real-time
 - Save conversion history
-- View & delete saved conversion records
+- View and delete saved conversions
 
 ### 💸 4. Expense Tracker
-- Add expenses with fields like amount, category, date, note (optional), and tripName (optional)
-- View complete expense history
-- Filter expenses by category and/or tripName
-- Update and delete expenses
+- Add expenses with amount, category, date (optional), note (optional), and trip name (optional)
+- View expense list
+- Filter by category and/or trip
+- Edit or delete expenses
 
 ---
 
 ## 🧠 Technologies Used
 
-- **Frontend:** React, Axios, React Router
+- **Frontend:** React, React Router DOM, Axios
 - **Backend:** Node.js, Express.js, MongoDB, Mongoose
 - **Authentication:** JWT, bcrypt
 - **APIs:** OpenWeatherMap, ExchangeRate API
+- **Tools:** Vite, Render, Netlify/Vercel, MongoDB Atlas
 
 ---
 
 ## 🗂️ Project Structure
+
 TravelCompanion/
-│
 ├── client/ # React frontend
 │ ├── src/
-│ ├── .env # External APIs (weather, currency)
+│ ├── .env # API keys for weather and currency
 │ └── ...
 │
-├── server/ # Node.js + Express backend
+├── server/ # Node.js backend
 │ ├── routes/
 │ ├── models/
 │ ├── controllers/
-│ ├── .env # DB URI, JWT secret
-│ └── config
+│ ├── config/
+│ ├── .env # MongoDB URI, JWT secret
+│ └── ...
+
+yaml
+Copy
+Edit
 
 ---
 
 ## 💻 Installation & Local Setup
 
-### 1. Clone the repository
-
-git clone https://github.com/yourusername/travelcompanion.git
-cd travelcompanion
-
-### 2. Backend Setup
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/Travel-Companion.git
+cd Travel-Companion
+2. Backend Setup
+bash
+Copy
+Edit
 cd server
 npm install
-# Create .env file using the format below
+# Create a .env file using the format below
 npm start
-
-### 3. Frontend Setup
+3. Frontend Setup
+bash
+Copy
+Edit
 cd client
 npm install
-# Create .env file using the format below
+# Create a .env file using the format below
 npm run dev
-
-### 🔐 Environment Variables
-server/.env
+🔐 Environment Variables
+📁 server/.env
 env
-
+Copy
+Edit
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 CLIENT_URL=http://localhost:5173
-client/.env
+📁 client/.env
 env
-
+Copy
+Edit
 REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
+🔀 API Endpoints Overview
+🧑‍💻 User Endpoints
+POST /api/auth/register – Register a new user
+▸ Body: name, email, password
+▸ Auth: ❌ No
 
-## 🔀 API Endpoints Overview
+POST /api/auth/login – Login and receive JWT
+▸ Body: email, password
+▸ Auth: ❌ No
 
-### 🧑‍💻 User Endpoints
-- **POST** `/api/auth/register` – Register a new user  
-  ▸ Required Body: `name`, `email`, `password`  
-  ▸ Auth: ❌ No
+POST /api/auth/logout – Logout (handled client-side)
+▸ Auth: ❌ No
 
-- **POST** `/api/auth/login` – Login and receive JWT token  
-  ▸ Required Body: `email`, `password`  
-  ▸ Auth: ❌ No
+🌦️ Weather Endpoints (Favorites)
+POST /api/weather/favorites – Save a favorite city
+▸ Body: { cityName, country }
+▸ Auth: ✅ Yes
 
-- **POST** `/api/auth/logout` – Logout (handled on client side)  
-  ▸ Auth: ❌ No
+GET /api/weather/favorites – Get all saved cities
+▸ Auth: ✅ Yes
 
----
+DELETE /api/weather/favorites/:id – Delete a saved city
+▸ Auth: ✅ Yes
 
-### 🌦️ Weather Endpoints (Favorite City)
-- **POST** `/api/weather/favorites` – Save a favorite city  
-  ▸ Required Body: `{ "cityName": "Paris", "country": "France" }`  
-  ▸ Auth: ✅ Yes
+💱 Currency Endpoints
+POST /api/currency/ – Save a currency conversion
+▸ Auth: ✅ Yes
 
-- **GET** `/api/weather/favorites` – Get list of saved favorite cities  
-  ▸ Auth: ✅ Yes
+GET /api/currency/ – Get all conversions
+▸ Auth: ✅ Yes
 
-- **DELETE** `/api/weather/favorites/:id` – Delete a favorite city  
-  ▸ Auth: ✅ Yes
+DELETE /api/currency/:id – Delete a specific conversion
+▸ Auth: ✅ Yes
 
----
+💸 Expense Endpoints
+POST /api/expenses – Add a new expense
+▸ Body: amount, category, date?, note?, tripName?
+▸ Auth: ✅ Yes
 
-### 💱 Currency Endpoints
-- **POST** `/api/currency/` – Save a new currency conversion  
-  ▸ Auth: ✅ Yes
+GET /api/expenses – Get all expenses
+▸ Auth: ✅ Yes
 
-- **GET** `/api/currency/` – View all saved currency conversions  
-  ▸ Auth: ✅ Yes
+GET /api/expenses/filter – Filter expenses
+▸ Query: category, tripName
+▸ Auth: ✅ Yes
 
-- **DELETE** `/api/currency/:id` – Delete a specific currency conversion  
-  ▸ Auth: ✅ Yes
+PUT /api/expenses/:id – Update an expense by ID
+▸ Body: amount, category, etc.
+▸ Auth: ✅ Yes
 
----
-
-### 💸 Expense Endpoints
-- **POST** `/api/expenses` – Add a new expense  
-  ▸ Required Body: `amount`, `category`  
-  ▸ Optional: `date`, `note`, `tripName`  
-  ▸ Auth: ✅ Yes
-
-- **GET** `/api/expenses` – Get all expenses of the logged-in user  
-  ▸ Auth: ✅ Yes
-
-- **GET** `/api/expenses/filter` – Filter expenses by category and/or tripName  
-  ▸ Query Params: `category`, `tripName`  
-  ▸ Auth: ✅ Yes
-
-- **PUT** `/api/expenses/:id` – Update an expense by ID  
-  ▸ Required Body: `amount`, `category`, etc.  
-  ▸ Auth: ✅ Yes
-
-- **DELETE** `/api/expenses/:id` – Delete an expense by ID  
-  ▸ Auth: ✅ Yes
+DELETE /api/expenses/:id – Delete an expense
+▸ Auth: ✅ Yes
 
 💡 Frontend Pages & Components
-📄 Pages
+📄 Main Pages
 Home (Header, Card, Footer)
 
 Login
@@ -165,7 +167,7 @@ Expense Tracker
 
 Not Found Page
 
-🧩 Components (used in above pages)
+🧩 Components
 🔁 Shared
 Header.jsx
 
@@ -203,21 +205,19 @@ ExpenseList.jsx
 ⚙️ Services
 Axios.js
 
-🚀 Deployment
-Deployment coming soon on platforms like:
+🚀 Deployment (Coming Soon)
+Frontend → Vercel / Netlify
 
-Frontend: Netlify / Vercel
+Backend → Render / Railway
 
-Backend: Render / Railway
-
-Database: MongoDB Atlas
+Database → MongoDB Atlas
 
 👤 Author
 Name: Ghulam Muttaqa Shah
 
-Project: TravelCompanion MERN App
+Project: Travel Companion MERN Stack App
 
 📄 License
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
 
-Feel free to ⭐ star this repo if you found it helpful!
+✅ Feel free to star this repo ⭐ if you found it helpful!
