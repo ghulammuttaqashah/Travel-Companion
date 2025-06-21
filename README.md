@@ -79,6 +79,8 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 #### env
 - REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 - REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
+  
+---
 
 # 🔀 API Endpoints Overview
 
