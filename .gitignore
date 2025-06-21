@@ -1,0 +1,16 @@
+# Ignore root-level node_modules and environment files
+node_modules/
+.env
+
+# Ignore subproject env files
+client/.env
+server/.env
+
+# Ignore runtime files
+*.log
+*.env.local
+
+# Ignore OS or IDE files
+.DS_Store
+.vscode/
+.idea/
