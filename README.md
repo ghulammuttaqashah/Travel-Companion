@@ -67,22 +67,22 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - npm install
 - npm run dev
 
-# 🔐 Environment Variables
-## 🔧 server/.env
-### env
+## 🔐 Environment Variables
+### 🔧 server/.env
+#### env
 - PORT=5000
 - MONGODB_URI=your_mongodb_connection_string
 - JWT_SECRET=your_jwt_secret
 - CLIENT_URL=http://localhost:5173
 
-## 🌐 client/.env
-### env
+### 🌐 client/.env
+#### env
 - REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 - REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
 
-## 🔀 API Endpoints Overview
+# 🔀 API Endpoints Overview
 
-### 🧑‍💻 User Endpoints
+## 🧑‍💻 User Endpoints
 - **POST** `/api/auth/register` – Register a new user  
   ▸ Required Body: `name`, `email`, `password`  
   ▸ Auth: ❌ No
@@ -96,7 +96,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-### 🌦️ Weather Endpoints (Favorite City)
+## 🌦️ Weather Endpoints (Favorite City)
 - **POST** `/api/weather/favorites` – Save a favorite city  
   ▸ Required Body: `{ "cityName": "Paris", "country": "France" }`  
   ▸ Auth: ✅ Yes
@@ -109,7 +109,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-### 💱 Currency Endpoints
+## 💱 Currency Endpoints
 - **POST** `/api/currency/` – Save a new currency conversion  
   ▸ Auth: ✅ Yes
 
@@ -121,7 +121,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-### 💸 Expense Endpoints
+## 💸 Expense Endpoints
 - **POST** `/api/expenses` – Add a new expense  
   ▸ Required Body: `amount`, `category`  
   ▸ Optional: `date`, `note`, `tripName`  
@@ -141,9 +141,9 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - **DELETE** `/api/expenses/:id` – Delete an expense by ID  
   ▸ Auth: ✅ Yes
 
-## 💡 Frontend Pages & Components
+# 💡 Frontend Pages & Components
 
-### 📄 Pages
+## 📄 Pages
 - **Home Page**  
   ▸ Uses: `Header`, `Card`, `Footer`
 
@@ -161,24 +161,24 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-### 🧩 Components (Used in Above Pages)
+## 🧩 Components (Used in Above Pages)
 
-#### 🔁 Shared Components
+### 🔁 Shared Components
 - `Header.jsx`
 - `Footer.jsx`
 - `Spinner.jsx`
 
-#### 🌦️ Weather Module Components
+### 🌦️ Weather Module Components
 - `WeatherDisplay.jsx`
 - `FavoriteCityCard.jsx`
 - `FavoriteCitiesList.jsx`
 
-#### 💱 Currency Module Components
+### 💱 Currency Module Components
 - `CurrencyDropDown.jsx`
 - `CurrencyHistoryCard.jsx`
 - `CurrencyHistoryList.jsx`
 
-#### 💸 Expense Module Components
+### 💸 Expense Module Components
 - `AddExpenseForm.jsx`
 - `ExpenseFilter.jsx`
 - `ExpenseCard.jsx`
@@ -195,7 +195,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 ### ⚙️ Services
 - `Axios.js`
 
-## 👤 Author
+# 👤 Author
 
 - **Name:** Ghulam Muttaqa Shah  
 - **Project:** Travel Companion – MERN Stack App
