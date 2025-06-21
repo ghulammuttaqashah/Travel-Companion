@@ -51,7 +51,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-### 💻 Installation & Local Setup
+# 💻 Installation & Local Setup
 
 ## 1. Clone the Repository
 - git clone https://github.com/yourusername/Travel-Companion.git
@@ -62,21 +62,21 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - npm install
 - npm start
 
-### 3. Frontend Setup
+## 3. Frontend Setup
 - cd client
 - npm install
 - npm run dev
 
-### 🔐 Environment Variables
+# 🔐 Environment Variables
 ## 🔧 server/.env
-# env
+### env
 - PORT=5000
 - MONGODB_URI=your_mongodb_connection_string
 - JWT_SECRET=your_jwt_secret
 - CLIENT_URL=http://localhost:5173
 
 ## 🌐 client/.env
-# env
+### env
 - REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 - REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
 
