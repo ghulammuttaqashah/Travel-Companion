@@ -82,6 +82,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
   
 ---
 
+
 # 🔀 API Endpoints Overview
 
 ## 🧑‍💻 User Endpoints
@@ -142,6 +143,7 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 - **DELETE** `/api/expenses/:id` – Delete an expense by ID  
   ▸ Auth: ✅ Yes
+
 
 # 💡 Frontend Pages & Components
 
