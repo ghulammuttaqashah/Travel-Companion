@@ -51,37 +51,34 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ---
 
-## 💻 Installation & Local Setup
+### 💻 Installation & Local Setup
 
-### 1. Clone the Repository
+## 1. Clone the Repository
+- git clone https://github.com/yourusername/Travel-Companion.git
+- cd Travel-Companion
 
-git clone https://github.com/yourusername/Travel-Companion.git
-cd Travel-Companion
-### 2. Backend Setup
+## 2. Backend Setup
+- cd server
+- npm install
+- npm start
 
-cd server
-npm install
-# Create a .env file using the format shown below
-npm start
 ### 3. Frontend Setup
-
-cd client
-npm install
-# Create a .env file using the format shown below
-npm run dev
+- cd client
+- npm install
+- npm run dev
 
 ### 🔐 Environment Variables
 ## 🔧 server/.env
 # env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
+- PORT=5000
+- MONGODB_URI=your_mongodb_connection_string
+- JWT_SECRET=your_jwt_secret
+- CLIENT_URL=http://localhost:5173
 
 ## 🌐 client/.env
 # env
-REACT_APP_WEATHER_API_KEY=your_openweather_api_key
-REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
+- REACT_APP_WEATHER_API_KEY=your_openweather_api_key
+- REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
 
 ## 🔀 API Endpoints Overview
 
