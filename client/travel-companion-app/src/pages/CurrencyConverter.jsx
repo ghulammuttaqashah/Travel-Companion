@@ -109,7 +109,7 @@ function CurrencyConverter() {
             />
             <img
               onClick={swapCurrencies}
-              src="./src/assets/arrow.png"
+              src="/images/arrow.png"
               alt="swap"
               width="36"
               height="36"
