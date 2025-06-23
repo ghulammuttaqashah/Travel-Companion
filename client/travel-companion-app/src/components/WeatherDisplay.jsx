@@ -8,8 +8,8 @@ function WeatherDisplay({ onFavoriteAdded }) {
   const [data, setData] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [favoriteLoading, setFavoriteLoading] = useState(false); // 👈 added
+  const [loading, setLoading] = useState(true); // 👈 default to true
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   const { showToast } = useToast();
   const api_key = import.meta.env.VITE_WEATHER_API_KEY;
@@ -77,7 +77,7 @@ function WeatherDisplay({ onFavoriteAdded }) {
       temperature: +(data.main.temp - 273.15).toFixed(0),
     };
 
-    setFavoriteLoading(true); // 👈 Start loading
+    setFavoriteLoading(true);
 
     try {
       const response = await axiosInstance.post("/weather/favorites", favoritePayload);
@@ -93,9 +93,18 @@ function WeatherDisplay({ onFavoriteAdded }) {
         error.response?.data?.message || "Something went wrong while adding to favorites.";
       showToast("error", msg);
     } finally {
-      setFavoriteLoading(false); // 👈 Stop loading
+      setFavoriteLoading(false);
     }
   };
+
+  // ⛔ If loading is true and nothing rendered yet, show Spinner only
+  if (loading && !data && !error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
