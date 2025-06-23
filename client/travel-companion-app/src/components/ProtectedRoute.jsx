@@ -1,19 +1,20 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useToast } from '../components/ToastContext';
 import { useEffect, useState } from 'react';
-import axiosInstance from '../services/axios'; // ✅ Your configured axios with `withCredentials: true`
+import axiosInstance from '../services/axios';
+import Spinner from '../components/Spinner'; // ✅ Import your Spinner component
 
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
   const { showToast } = useToast();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(null); // null = loading, true/false = result
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [hasRedirected, setHasRedirected] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axiosInstance.get('/auth/verify'); // ✅ Add this route in backend
+        const res = await axiosInstance.get('/auth/verify');
         if (res.status === 200) {
           setIsAuthenticated(true);
         }
@@ -29,8 +30,14 @@ const ProtectedRoute = ({ children }) => {
     checkAuth();
   }, [hasRedirected, showToast]);
 
-  // ✅ Wait for auth check to complete
-  if (isAuthenticated === null) return null; // or a spinner
+  // ✅ Show Spinner while checking auth
+  if (isAuthenticated === null) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return isAuthenticated ? (
     children
