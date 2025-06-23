@@ -65,7 +65,7 @@ function Header() {
           <>
             <li>
               <Link to="/login">
-                <button className="bg-white text-[#243642] px-5 cusor-pointer py-2 rounded hover:bg-gray-200 transition text-lg font-medium">
+                <button className="bg-white text-[#243642] px-5 py-2 rounded hover:bg-gray-200 transition text-lg font-medium cursor-pointer">
                   Login
                 </button>
               </Link>
