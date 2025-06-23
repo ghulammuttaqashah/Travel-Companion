@@ -1,30 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "../components/ToastContext";
+import axiosInstance from "../services/axios";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { showToast } = useToast(); // ✅ Use toast
+  const { showToast } = useToast();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // ✅ Update login state on route change
+  // ✅ Check login status via backend (cookie-based)
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
+    const checkAuth = async () => {
+      try {
+        const res = await axiosInstance.get("/auth/verify");
+        if (res.status === 200) {
+          setIsLoggedIn(true);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
   }, [location.pathname]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    showToast("success", "Logout successful!");
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/auth/logout");
+      setIsLoggedIn(false);
+      showToast("success", "Logout successful!");
 
-    // ✅ Stay on homepage if user is on "/", otherwise navigate to login
-    if (location.pathname !== "/") {
-      navigate("/login");
+      if (location.pathname !== "/") {
+        navigate("/login");
+      }
+    } catch (err) {
+      showToast("error", "Logout failed");
     }
   };
 
@@ -43,7 +56,7 @@ function Header() {
           <li>
             <button
               onClick={handleLogout}
-              className="bg-red-500 text-white px-5 py-2 rounded hover:bg-red-600 transition text-lg font-medium"
+              className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition text-lg font-medium"
             >
               Logout
             </button>
@@ -86,7 +99,7 @@ function Header() {
                   handleLogout();
                   toggleMenu();
                 }}
-                className="bg-red-500 text-white px-5 py-2 rounded hover:bg-red-600 transition text-lg font-medium"
+                className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition text-lg font-medium"
               >
                 Logout
               </button>

@@ -42,14 +42,36 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
     const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '12h' });
-    res.json({ token, user: { name: user.name, email: user.email } });
+
+    // ✅ Send token in HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 12 * 60 * 60 * 1000 // 12 hours
+    });
+
+    res.json({ user: { name: user.name, email: user.email } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Logout (Client-side logic; just responds)
+const authenticate = require('../middleware/authentication'); // ✅ Your updated cookie-based middleware
+
+router.get('/verify', authenticate, (req, res) => {
+  res.status(200).json({ message: 'Authenticated' });
+});
+
+
+// Logout
 router.post('/logout', (req, res) => {
+  // ✅ Clear cookie on logout
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict'
+  });
   res.json({ message: 'Logged out successfully' });
 });
 

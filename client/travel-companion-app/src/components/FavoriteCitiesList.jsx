@@ -49,9 +49,9 @@ function FavoriteCitiesList({ refreshTrigger }) {
         <p className="text-lg text-[#243642] font-semibold">No favorite cities to display.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4">
-          {favorites.map((city) => (
-            <FavoriteCityCard key={city._id} city={city} onDelete={handleDelete} />
-          ))}
+          {[...favorites].reverse().map((city) => (
+  <FavoriteCityCard key={city._id} city={city} onDelete={handleDelete} />
+))}
         </div>
       )}
     </div>

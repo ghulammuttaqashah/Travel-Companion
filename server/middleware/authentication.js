@@ -5,7 +5,8 @@ dotenv.config();
 const jwtSecret = process.env.JWT_SECRET;
 
 const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
+  const token = req.cookies.token; // ✅ Read from cookie
+
   if (!token) return res.status(401).json({ error: 'No token provided' });
 
   jwt.verify(token, jwtSecret, (err, decoded) => {

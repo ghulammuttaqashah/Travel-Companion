@@ -18,7 +18,7 @@ function ExpenseList({ expenses, loading, onDelete, onUpdate }) {
         </p>
       ) : (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-6">
-          {expenses.map((expense) => (
+          {[...expenses].reverse().map((expense) => (
             <ExpenseCard
               key={expense._id}
               expense={expense}

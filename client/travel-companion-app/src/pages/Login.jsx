@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👈 New state
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { showToast } = useToast();
   const navigate = useNavigate();
@@ -19,8 +19,9 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axiosInstance.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.token);
+      // ✅ No need to store token manually
+      await axiosInstance.post("/auth/login", { email, password });
+
       showToast("success", "Login successful!");
       navigate(from);
     } catch (err) {
@@ -53,14 +54,13 @@ function Login() {
           <div>
             <label className="block text-lg font-semibold mb-2">Password</label>
             <input
-              type={showPassword ? "text" : "password"} // 👈 Toggle visibility
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 rounded bg-[#243642] text-[#E2F1E7] border border-[#629584] focus:outline-none focus:ring-2 focus:ring-[#629584]"
               placeholder="Enter your password"
               required
             />
-            {/* Show Password Checkbox */}
             <div className="mt-3 flex items-center">
               <input
                 type="checkbox"
@@ -89,7 +89,6 @@ function Login() {
           </button>
         </form>
 
-        {/* Bottom Link */}
         <p className="text-lg text-center mt-8">
           Don’t have an account?{" "}
           <Link
