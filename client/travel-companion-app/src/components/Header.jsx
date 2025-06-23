@@ -12,7 +12,6 @@ function Header() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // ✅ Check login status via backend (cookie-based)
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -32,7 +31,6 @@ function Header() {
       await axiosInstance.post("/auth/logout");
       setIsLoggedIn(false);
       showToast("success", "Logout successful!");
-
       if (location.pathname !== "/") {
         navigate("/login");
       }
@@ -42,7 +40,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-[#243642] text-[#E2F1E7] px-6 py-5 flex items-center justify-between relative shadow-md">
+    <header className="bg-[#243642] text-[#E2F1E7] px-6 py-5 flex items-center justify-between relative shadow-md w-full z-20">
       {/* ✅ Responsive Padding for Title */}
       <h1 className="text-3xl sm:text-4xl font-extrabold pl-4 sm:pl-4">
         Travel Companion
@@ -89,9 +87,9 @@ function Header() {
         ☰
       </div>
 
-      {/* ✅ Mobile Nav — no overlap */}
+      {/* ✅ Mobile Nav — no white line */}
       {isMenuOpen && (
-        <ul className="absolute top-full left-0 w-full bg-[#243642] text-[#E2F1E7] flex flex-col items-center space-y-6 py-6 md:hidden z-10 text-xl font-medium shadow-md">
+        <ul className="absolute top-full left-0 w-full bg-[#243642] text-[#E2F1E7] flex flex-col items-center space-y-6 py-6 md:hidden z-10 text-xl font-medium shadow-md border-t border-[#243642]">
           <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
           <li><Link to="/weather" onClick={toggleMenu}>Weather</Link></li>
           <li><Link to="/currency-converter" onClick={toggleMenu}>Currency Converter</Link></li>
