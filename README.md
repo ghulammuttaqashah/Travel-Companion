@@ -8,8 +8,8 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 ### 🌍 1. User Authentication
 - Register/Login using name (only during register), email, and password
-- Secure authentication with JWT tokens
-- Protected routes with session management
+- Secure authentication using HTTP-only JWT cookies (not exposed to JavaScript)
+- Protected routes validated via backend session (cookie-based verification)
 
 ### 🌦️ 2. Weather Module (OpenWeather API)
 - Search and display current weather for any city
@@ -86,16 +86,21 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 # 🔀 API Endpoints Overview
 
 ## 🧑‍💻 User Endpoints
+
 - **POST** `/api/auth/register` – Register a new user  
   ▸ Required Body: `name`, `email`, `password`  
   ▸ Auth: ❌ No
 
-- **POST** `/api/auth/login` – Login and receive JWT token  
+- **POST** `/api/auth/login` – Login and receive HTTP-only JWT cookie  
   ▸ Required Body: `email`, `password`  
   ▸ Auth: ❌ No
 
-- **POST** `/api/auth/logout` – Logout (handled on client side)  
+- **POST** `/api/auth/logout` – Logout and clear cookie  
   ▸ Auth: ❌ No
+
+- **GET** `/api/auth/verify` – Check if user is authenticated (via cookie)  
+  ▸ Auth: ✅ Yes
+
 
 ---
 
