@@ -56,7 +56,7 @@ function Header() {
           <li>
             <button
               onClick={handleLogout}
-              className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition text-lg font-medium"
+              className="bg-red-600 text-white px-5 py-2 cursor-pointer rounded hover:bg-red-700 transition text-lg font-medium"
             >
               Logout
             </button>
@@ -65,14 +65,14 @@ function Header() {
           <>
             <li>
               <Link to="/login">
-                <button className="bg-white text-[#243642] px-5 py-2 rounded hover:bg-gray-200 transition text-lg font-medium">
+                <button className="bg-white text-[#243642] px-5 cusor-pointer py-2 rounded hover:bg-gray-200 transition text-lg font-medium">
                   Login
                 </button>
               </Link>
             </li>
             <li>
               <Link to="/register">
-                <button className="bg-transparent border border-white text-[#E2F1E7] px-5 py-2 rounded hover:bg-white hover:text-[#243642] transition text-lg font-medium">
+                <button className="bg-transparent border cursor-pointer border-white text-[#E2F1E7] px-5 py-2 rounded hover:bg-white hover:text-[#243642] transition text-lg font-medium">
                   Register
                 </button>
               </Link>
@@ -99,7 +99,7 @@ function Header() {
                   handleLogout();
                   toggleMenu();
                 }}
-                className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition text-lg font-medium"
+                className="bg-red-600 text-white cursor-pointer px-5 py-2 rounded hover:bg-red-700 transition text-lg font-medium"
               >
                 Logout
               </button>
@@ -108,14 +108,14 @@ function Header() {
             <>
               <li>
                 <Link to="/login" onClick={toggleMenu}>
-                  <button className="bg-white text-[#243642] px-5 py-2 rounded hover:bg-gray-200 transition text-lg font-medium">
+                  <button className="bg-white text-[#243642] px-5 cursor-pointer py-2 rounded hover:bg-gray-200 transition text-lg font-medium">
                     Login
                   </button>
                 </Link>
               </li>
               <li>
                 <Link to="/register" onClick={toggleMenu}>
-                  <button className="bg-transparent border border-white text-[#E2F1E7] px-5 py-2 rounded hover:bg-white hover:text-[#243642] transition text-lg font-medium">
+                  <button className="bg-transparent border cursor-pointer border-white text-[#E2F1E7] px-5 py-2 rounded hover:bg-white hover:text-[#243642] transition text-lg font-medium">
                     Register
                   </button>
                 </Link>
