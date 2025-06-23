@@ -36,9 +36,9 @@ function Register() {
   const passwordsMatch = password === confirmPassword;
 
   return (
-    <div className="flex items-center mt-15 mb-15 justify-center px-4">
+    <div className="flex items-center justify-center min-h-screen px-4">
       <div className="bg-[#2e4a57] text-[#E2F1E7] rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-5xl font-extrabold mb-8 text-center">Register</h2>
+        <h2 className="text-4xl font-extrabold mb-8 text-center">Register</h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Name Field */}
@@ -92,7 +92,7 @@ function Register() {
               required
             />
             {!passwordsMatch && confirmPassword.length > 0 && (
-              <p className="text-red-400 font-bold text-xl mt-2">Passwords do not match</p>
+              <p className="text-red-400 font-bold text-sm mt-1">Passwords do not match</p>
             )}
           </div>
 
@@ -114,13 +114,13 @@ function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full text-2xl py-3 rounded font-bold transition ${
+            className={`w-full text-xl py-3 rounded font-bold cursor-pointer flex justify-center items-center transition ${
               isLoading
                 ? "bg-gray-500 cursor-not-allowed"
                 : "bg-[#629584] hover:bg-[#4d7a6b] text-white"
             }`}
           >
-            {isLoading ? <Spinner /> : "Register"}
+            {isLoading ? <Spinner size="sm" /> : "Register"}
           </button>
         </form>
 

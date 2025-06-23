@@ -19,9 +19,7 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      // ✅ No need to store token manually
       await axiosInstance.post("/auth/login", { email, password });
-
       showToast("success", "Login successful!");
       navigate(from);
     } catch (err) {
@@ -34,7 +32,7 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-[#2e4a57] text-[#E2F1E7] rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-5xl font-extrabold mb-8 text-center">Login</h2>
+        <h2 className="text-4xl font-extrabold mb-8 text-center">Login</h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Email Field */}
@@ -61,6 +59,8 @@ function Login() {
               placeholder="Enter your password"
               required
             />
+
+            {/* Show Password Toggle */}
             <div className="mt-3 flex items-center">
               <input
                 type="checkbox"
@@ -69,17 +69,17 @@ function Login() {
                 onChange={() => setShowPassword(!showPassword)}
                 className="mr-2 accent-[#629584] w-4 h-4"
               />
-              <label htmlFor="showPassword" className="text-m text-[#E2F1E7] font-semibold">
+              <label htmlFor="showPassword" className="text-sm text-[#E2F1E7] font-medium">
                 Show Password
               </label>
             </div>
           </div>
 
-          {/* Submit Button with Spinner */}
+          {/* Login Button with Spinner */}
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full text-2xl py-3 rounded font-bold transition ${
+            className={`w-full text-2xl py-3 cursor-pointer rounded font-bold flex justify-center items-center transition ${
               isLoading
                 ? "bg-gray-500 cursor-not-allowed"
                 : "bg-[#629584] hover:bg-[#4d7a6b] text-white"
@@ -89,6 +89,7 @@ function Login() {
           </button>
         </form>
 
+        {/* Bottom Link */}
         <p className="text-lg text-center mt-8">
           Don’t have an account?{" "}
           <Link

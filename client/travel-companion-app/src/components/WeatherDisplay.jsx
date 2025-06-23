@@ -9,6 +9,7 @@ function WeatherDisplay({ onFavoriteAdded }) {
   const [forecast, setForecast] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false); // 👈 added
 
   const { showToast } = useToast();
   const api_key = import.meta.env.VITE_WEATHER_API_KEY;
@@ -76,16 +77,14 @@ function WeatherDisplay({ onFavoriteAdded }) {
       temperature: +(data.main.temp - 273.15).toFixed(0),
     };
 
+    setFavoriteLoading(true); // 👈 Start loading
+
     try {
-      const response = await axiosInstance.post("/weather/favorites", favoritePayload, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axiosInstance.post("/weather/favorites", favoritePayload);
 
       if (response.status === 200 || response.status === 201) {
         showToast("success", "City added to favorites!");
-        if (onFavoriteAdded) onFavoriteAdded(); // 🔁 notify parent to refresh favorites
+        if (onFavoriteAdded) onFavoriteAdded();
       } else {
         showToast("error", "Could not add to favorites. Try again.");
       }
@@ -93,6 +92,8 @@ function WeatherDisplay({ onFavoriteAdded }) {
       const msg =
         error.response?.data?.message || "Something went wrong while adding to favorites.";
       showToast("error", msg);
+    } finally {
+      setFavoriteLoading(false); // 👈 Stop loading
     }
   };
 
@@ -117,9 +118,12 @@ function WeatherDisplay({ onFavoriteAdded }) {
           </button>
           <button
             onClick={handleAddToFavorite}
-            className="bg-[#629584] cursor-pointer text-white text-xl font-bold py-2.5 px-5 rounded-full hover:bg-[#507668] transition"
+            disabled={favoriteLoading}
+            className={`bg-[#629584] cursor-pointer text-white text-xl font-bold py-2.5 px-5 rounded-full hover:bg-[#507668] transition flex items-center justify-center ${
+              favoriteLoading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Add to Favorite
+            {favoriteLoading ? <Spinner /> : "Add to Favorite"}
           </button>
         </div>
 

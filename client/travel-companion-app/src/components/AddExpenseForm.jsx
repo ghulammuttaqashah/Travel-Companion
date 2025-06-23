@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../services/axios";
 import { useToast } from "./ToastContext";
+import Spinner from "./Spinner"; // ✅ Make sure Spinner is imported
 
 function AddExpenseForm({ onAdd }) {
   const today = new Date().toISOString().split("T")[0];
@@ -12,6 +13,8 @@ function AddExpenseForm({ onAdd }) {
     note: "",
     tripName: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false); // ✅ Spinner state
 
   const { showToast } = useToast();
 
@@ -27,7 +30,6 @@ function AddExpenseForm({ onAdd }) {
       return;
     }
 
-    // Convert amount to number and fill default values
     const payload = {
       ...form,
       amount: Number(form.amount),
@@ -37,6 +39,7 @@ function AddExpenseForm({ onAdd }) {
     };
 
     try {
+      setIsLoading(true); // ✅ Start loading
       await axiosInstance.post("/expenses", payload);
       showToast("success", "Expense added successfully!");
       onAdd(); // Refresh the list
@@ -44,6 +47,8 @@ function AddExpenseForm({ onAdd }) {
     } catch (error) {
       console.error("Add Expense Error:", error.response?.data || error.message);
       showToast("error", "Failed to add expense.");
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
     }
   };
 
@@ -117,9 +122,12 @@ function AddExpenseForm({ onAdd }) {
       <div className="text-center mt-6">
         <button
           type="submit"
-          className="bg-[#243642] text-[#E2F1E7] font-bold text-2xl py-2 px-6 rounded-full hover:bg-[#1c2b33] transition cursor-pointer"
+          disabled={isLoading}
+          className={`bg-[#243642] text-[#E2F1E7] font-bold text-2xl py-2 px-6 rounded-full transition cursor-pointer flex justify-center items-center mx-auto ${
+            isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#1c2b33]"
+          }`}
         >
-          Add Expense
+          {isLoading ? <Spinner /> : "Add Expense"}
         </button>
       </div>
     </form>
