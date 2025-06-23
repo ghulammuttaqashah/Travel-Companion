@@ -97,7 +97,7 @@ function AddExpenseForm({ onAdd }) {
           name="date"
           value={form.date}
           onChange={handleChange}
-          className="border border-[#243642] font-bold rounded-lg px-4 py-2 focus:outline-none"
+          className="border border-[#243642] font-bold rounded-lg px-4 py-2 focus:outline-none bg-white"
         />
 
         <input

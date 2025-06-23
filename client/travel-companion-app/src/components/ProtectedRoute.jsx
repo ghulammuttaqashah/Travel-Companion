@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }) => {
       } catch (err) {
         setIsAuthenticated(false);
         if (!hasRedirected) {
-          showToast("error", "Please login first");
+          showToast("error", "Login Please!");
           setHasRedirected(true);
         }
       }
