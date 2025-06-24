@@ -99,82 +99,83 @@ function CurrencyConverter() {
   }, []);
 
   return (
+    // inside return
+<>
+  {loading ? (
+    <div className="flex justify-center items-center h-[60vh] px-4">
+      <Spinner />
+    </div>
+  ) : (
     <>
-      {loading ? (
-        <div className="flex justify-center items-center h-[60vh]">
-          <Spinner />
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-center items-center mt-20 mb-24 px-4">
-            <div className="bg-white border border-[#629584] rounded-2xl shadow-lg p-10 w-full max-w-xl">
-              <h2 className="text-5xl font-extrabold text-[#243642] text-center mb-8">
-                Currency Converter
-              </h2>
+      <div className="flex justify-center items-center mt-12 sm:mt-20 mb-16 sm:mb-24 px-4">
+        <div className="bg-white border border-[#629584] rounded-2xl shadow-lg p-6 sm:p-10 w-full max-w-lg sm:max-w-xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#243642] text-center mb-6 sm:mb-8">
+            Currency Converter
+          </h2>
 
-              <div className="flex items-center justify-center gap-6 mb-8">
-                <CurrencyDropDown
-                  currencies={currencies}
-                  title="From"
-                  currency={fromCurrency}
-                  setCurrency={setFromCurrency}
-                />
-                <img
-                  onClick={swapCurrencies}
-                  src="/images/arrow.png"
-                  alt="swap"
-                  width="36"
-                  height="36"
-                  className={`cursor-pointer transform mt-6 transition-transform duration-300 ${rotated ? "rotate-180" : ""}`}
-                />
-                <CurrencyDropDown
-                  currencies={currencies}
-                  title="To"
-                  currency={toCurrency}
-                  setCurrency={setToCurrency}
-                />
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="amount" className="block text-[#243642] text-lg font-semibold mb-2">
-                  Amount:
-                </label>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="w-full border border-[#629584] rounded-md px-4 py-2 shadow-sm text-lg"
-                />
-              </div>
-
-              <div className="flex justify-center gap-6 mt-6">
-                <button
-                  onClick={convertCurrency}
-                  className="bg-[#243642] cursor-pointer text-[#E2F1E7] font-bold py-2 px-6 rounded-full hover:bg-[#1e2e38] transition text-2xl"
-                >
-                  Convert
-                </button>
-                <button
-                  onClick={addToHistory}
-                  disabled={addLoading}
-                  className={`bg-[#629584] cursor-pointer text-white font-bold py-2 px-6 rounded-full hover:bg-[#517b6a] transition text-2xl flex items-center justify-center ${
-                    addLoading ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {addLoading ? <Spinner /> : "Add to History"}
-                </button>
-              </div>
-
-              <div className="mt-6 text-right text-[#243642] font-bold text-2xl">
-                Converted Amount: {convertedAmount ? `${convertedAmount} ${toCurrency}` : "N/A"}
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8">
+            <CurrencyDropDown
+              currencies={currencies}
+              title="From"
+              currency={fromCurrency}
+              setCurrency={setFromCurrency}
+            />
+            <img
+              onClick={swapCurrencies}
+              src="/images/arrow.png"
+              alt="swap"
+              width="36"
+              height="36"
+              className={`cursor-pointer transform sm:mt-6 transition-transform duration-300 ${rotated ? "rotate-180" : ""}`}
+            />
+            <CurrencyDropDown
+              currencies={currencies}
+              title="To"
+              currency={toCurrency}
+              setCurrency={setToCurrency}
+            />
           </div>
 
-          <CurrencyHistoryList history={history} loading={loading} fetchHistory={fetchHistory} />
-        </>
-      )}
+          <div className="mb-6">
+            <label htmlFor="amount" className="block text-[#243642] text-base sm:text-lg font-semibold mb-2">
+              Amount:
+            </label>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full border border-[#629584] rounded-md px-4 py-2 shadow-sm text-base sm:text-lg"
+            />
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-6">
+            <button
+              onClick={convertCurrency}
+              className="bg-[#243642] cursor-pointer text-[#E2F1E7] font-bold py-2 px-6 rounded-full hover:bg-[#1e2e38] transition text-lg sm:text-2xl"
+            >
+              Convert
+            </button>
+            <button
+              onClick={addToHistory}
+              disabled={addLoading}
+              className={`bg-[#629584] cursor-pointer text-white font-bold py-2 px-6 rounded-full hover:bg-[#517b6a] transition text-lg sm:text-2xl flex items-center justify-center ${
+                addLoading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
+            >
+              {addLoading ? <Spinner /> : "Add to History"}
+            </button>
+          </div>
+
+          <div className="mt-6 text-center sm:text-right text-[#243642] font-bold text-lg sm:text-2xl">
+            Converted Amount: {convertedAmount ? `${convertedAmount} ${toCurrency}` : "N/A"}
+          </div>
+        </div>
+      </div>
+
+      <CurrencyHistoryList history={history} loading={loading} fetchHistory={fetchHistory} />
     </>
+  )}
+</>
   );
 }
 
