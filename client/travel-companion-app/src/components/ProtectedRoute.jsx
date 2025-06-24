@@ -1,3 +1,4 @@
+// src/components/ProtectedRoute.jsx
 import { Navigate, useLocation } from 'react-router-dom';
 import { useToast } from '../components/ToastContext';
 import { useEffect, useState } from 'react';
@@ -7,9 +8,7 @@ import Spinner from '../components/Spinner';
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
   const { showToast } = useToast();
-
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [hasRedirected, setHasRedirected] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -19,17 +18,12 @@ const ProtectedRoute = ({ children }) => {
           setIsAuthenticated(true);
         }
       } catch (err) {
-        // If user is not logged in (no cookie), show login-required toast
-        if (!hasRedirected && !document.cookie.includes("token")) {
-          showToast("error", "Please login first!");
-          setHasRedirected(true);
-        }
         setIsAuthenticated(false);
       }
     };
 
     checkAuth();
-  }, [hasRedirected, showToast]);
+  }, []);
 
   if (isAuthenticated === null) {
     return (
@@ -42,7 +36,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? (
     children
   ) : (
-    <Navigate to="/login" state={{ from: location.pathname }} replace />
+    <Navigate to="/session-expired" state={{ from: location.pathname }} replace />
   );
 };
 
