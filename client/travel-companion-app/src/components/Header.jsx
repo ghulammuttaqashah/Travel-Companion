@@ -16,14 +16,16 @@ function Header() {
     const checkAuth = async () => {
       try {
         const res = await axiosInstance.get("/auth/verify");
-        if (res.status === 200) {
-          setIsLoggedIn(true);
-        }
-      } catch (err) {
+        setIsLoggedIn(res.status === 200);
+      } catch {
         setIsLoggedIn(false);
       }
     };
-    checkAuth();
+
+    checkAuth(); // Initial check
+    const interval = setInterval(checkAuth, 15 * 60 * 1000); // Refresh every 15 minutes
+
+    return () => clearInterval(interval); // Cleanup
   }, [location.pathname]);
 
   const handleLogout = async () => {
@@ -39,28 +41,17 @@ function Header() {
     }
   };
 
-  // ✅ Only allow nav if logged in
-  const handleProtectedNav = (path) => {
-    if (isLoggedIn) {
-      navigate(path);
-    } else {
-      showToast("error", "Please login to continue.");
-    }
-    setIsMenuOpen(false); // Close mobile menu if open
-  };
-
   return (
     <header className="bg-[#243642] text-[#E2F1E7] px-6 py-5 flex items-center justify-between relative shadow-md w-full z-20">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold px-2 text-center sm:text-left">
         Travel Companion
       </h1>
 
-      {/* Desktop Nav */}
       <ul className="hidden md:flex space-x-8 items-center text-xl font-semibold">
         <li><Link to="/" className="hover:text-white transition">Home</Link></li>
-        <li><button onClick={() => handleProtectedNav("/weather")} className="hover:text-white transition">Weather</button></li>
-        <li><button onClick={() => handleProtectedNav("/currency-converter")} className="hover:text-white transition">Currency Converter</button></li>
-        <li><button onClick={() => handleProtectedNav("/expensetracker")} className="hover:text-white transition">Expense Tracker</button></li>
+        <li><Link to="/weather" className="hover:text-white transition">Weather</Link></li>
+        <li><Link to="/currency-converter" className="hover:text-white transition">Currency Converter</Link></li>
+        <li><Link to="/expensetracker" className="hover:text-white transition">Expense Tracker</Link></li>
 
         {isLoggedIn ? (
           <li>
@@ -100,9 +91,9 @@ function Header() {
       {isMenuOpen && (
         <ul className="absolute top-full left-0 w-full bg-[#243642] text-[#E2F1E7] flex flex-col items-center space-y-6 py-6 md:hidden z-10 text-xl font-medium shadow-md border-t border-[#243642]">
           <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-          <li><button onClick={() => handleProtectedNav("/weather")}>Weather</button></li>
-          <li><button onClick={() => handleProtectedNav("/currency-converter")}>Currency Converter</button></li>
-          <li><button onClick={() => handleProtectedNav("/expensetracker")}>Expense Tracker</button></li>
+          <li><Link to="/weather" onClick={toggleMenu}>Weather</Link></li>
+          <li><Link to="/currency-converter" onClick={toggleMenu}>Currency Converter</Link></li>
+          <li><Link to="/expensetracker" onClick={toggleMenu}>Expense Tracker</Link></li>
 
           {isLoggedIn ? (
             <li>
