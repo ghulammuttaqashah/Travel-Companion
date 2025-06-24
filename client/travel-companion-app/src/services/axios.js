@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, // ✅ send HTTP-only cookies
+  withCredentials: true, // ✅ Important for sending cookies
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,9 +13,8 @@ axiosInstance.interceptors.response.use(
   error => {
     const isAuthExpired = error.response?.status === 401;
     const isAlreadyOnSessionPage = window.location.pathname === '/session-expired';
-    const hasAuthCookie = document.cookie.includes('token=');
 
-    if (isAuthExpired && hasAuthCookie && !isAlreadyOnSessionPage) {
+    if (isAuthExpired && !isAlreadyOnSessionPage) {
       window.location.href = '/session-expired';
     }
 
