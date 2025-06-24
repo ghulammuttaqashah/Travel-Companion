@@ -7,7 +7,8 @@ import Spinner from '../components/Spinner';
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
   const { showToast } = useToast();
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -17,26 +18,23 @@ const ProtectedRoute = ({ children }) => {
           setIsAuthenticated(true);
         }
       } catch (err) {
-        // Distinguish between guest and expired session by response message
         const msg = err.response?.data?.error;
 
         if (msg === "Invalid token") {
-          // Session expired (user WAS logged in)
           window.location.href = '/session-expired';
         } else {
-          // Guest user trying to access protected route
           showToast("error", "Please login to continue.");
         }
-
-        setIsAuthenticated(false);
+      } finally {
+        setAuthChecked(true); // ✅ Ensures auth check is done
       }
     };
 
     checkAuth();
   }, [location.pathname, showToast]);
 
-  // Show spinner during auth check
-  if (isAuthenticated === null) {
+  // ✅ While auth not yet checked, render nothing or spinner
+  if (!authChecked) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <Spinner />
@@ -44,8 +42,12 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  // If authenticated, show children. Otherwise, return nothing.
-  return isAuthenticated ? children : null;
+  // ✅ If not authenticated, return nothing (stay on current page)
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;
