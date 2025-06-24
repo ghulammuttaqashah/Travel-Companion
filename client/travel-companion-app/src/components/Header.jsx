@@ -25,7 +25,7 @@ function Header() {
     };
 
     checkAuth(); // Initial check
-    const interval = setInterval(checkAuth, 15 * 60 * 1000); // Every 15 minutes
+    const interval = setInterval(checkAuth, 10* 1000); // Every 15 minutes
 
     return () => clearInterval(interval); // Clean up on unmount
   }, [location.pathname]);
@@ -34,7 +34,7 @@ function Header() {
     try {
       await axiosInstance.post("/auth/logout");
       setIsLoggedIn(false);
-      showToast("success", "Logout successful!");
+
       if (location.pathname !== "/") {
         navigate("/login");
       }
