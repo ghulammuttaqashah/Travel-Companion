@@ -15,7 +15,12 @@ function SessionExpired() {
         >
           Go to Login
         </Link>
-        
+        <Link
+          to="/"
+          className="border border-[#243642] text-[#243642] px-6 py-3 rounded-lg font-semibold hover:bg-[#243642] hover:text-[#E2F1E7] transition"
+        >
+          Back to Home
+        </Link>
       </div>
     </div>
   );

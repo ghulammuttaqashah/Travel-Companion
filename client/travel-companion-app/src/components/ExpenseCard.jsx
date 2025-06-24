@@ -19,6 +19,10 @@ function ExpenseCard({ expense, onDelete, onUpdate }) {
       note: editData.note?.trim() || "N/A",
       tripName: editData.tripName?.trim() || "N/A",
     };
+    if (!editData.amount || Number(editData.amount) <= 0) {
+  alert("Please enter a valid amount.");
+  return;
+}
 
     onUpdate(expense._id, payload); // ⬅️ Send to parent
     setIsEditing(false);
