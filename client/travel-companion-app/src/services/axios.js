@@ -11,12 +11,14 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   response => response,
   error => {
-    if (error.response && error.response.status === 401) {
-      // 🔁 Redirect to session expired page
-      if (window.location.pathname !== '/session-expired') {
-        window.location.href = '/session-expired';
-      }
+    const isAuthExpired = error.response?.status === 401;
+    const isAlreadyOnSessionPage = window.location.pathname === '/session-expired';
+    const hasAuthCookie = document.cookie.includes('token=');
+
+    if (isAuthExpired && hasAuthCookie && !isAlreadyOnSessionPage) {
+      window.location.href = '/session-expired';
     }
+
     return Promise.reject(error);
   }
 );
