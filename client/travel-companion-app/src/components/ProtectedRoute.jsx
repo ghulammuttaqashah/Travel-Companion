@@ -1,5 +1,4 @@
-// src/components/ProtectedRoute.jsx
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useToast } from '../components/ToastContext';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../services/axios';
@@ -18,13 +17,25 @@ const ProtectedRoute = ({ children }) => {
           setIsAuthenticated(true);
         }
       } catch (err) {
+        // Distinguish between guest and expired session by response message
+        const msg = err.response?.data?.error;
+
+        if (msg === "Invalid token") {
+          // Session expired (user WAS logged in)
+          window.location.href = '/session-expired';
+        } else {
+          // Guest user trying to access protected route
+          showToast("error", "Please login to continue.");
+        }
+
         setIsAuthenticated(false);
       }
     };
 
     checkAuth();
-  }, []);
+  }, [location.pathname, showToast]);
 
+  // Show spinner during auth check
   if (isAuthenticated === null) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -33,11 +44,8 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return isAuthenticated ? (
-    children
-  ) : (
-    <Navigate to="/session-expired" state={{ from: location.pathname }} replace />
-  );
+  // If authenticated, show children. Otherwise, return nothing.
+  return isAuthenticated ? children : null;
 };
 
 export default ProtectedRoute;
