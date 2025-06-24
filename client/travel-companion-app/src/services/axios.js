@@ -12,14 +12,16 @@ axiosInstance.interceptors.response.use(
   response => response,
   error => {
     const isAuthExpired = error.response?.status === 401;
-    const isProtectedRoute = window.location.pathname.startsWith('/weather') ||
-                             window.location.pathname.startsWith('/currency-converter') ||
-                             window.location.pathname.startsWith('/expensetracker');
+    const path = window.location.pathname;
 
-    const isAlreadyOnSessionPage = window.location.pathname === '/session-expired';
+    const protectedPaths = ['/weather', '/currency-converter', '/expensetracker'];
+    const isProtectedRoute = protectedPaths.some(route => path.startsWith(route));
 
-    // ✅ Redirect only if 401 from a protected route
-    if (isAuthExpired && isProtectedRoute && !isAlreadyOnSessionPage) {
+    // Do not redirect on login/register page or non-protected routes
+    const isAuthPage = path === '/login' || path === '/register';
+    const isAlreadyOnSessionPage = path === '/session-expired';
+
+    if (isAuthExpired && isProtectedRoute && !isAlreadyOnSessionPage && !isAuthPage) {
       window.location.href = '/session-expired';
     }
 
