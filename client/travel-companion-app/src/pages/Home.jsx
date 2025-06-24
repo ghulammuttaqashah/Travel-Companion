@@ -1,7 +1,36 @@
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../components/ToastContext";
+import { useEffect, useState } from "react";
+import axiosInstance from "../services/axios";
 
 function Home() {
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axiosInstance.get("/auth/verify");
+        if (res.status === 200) {
+          setIsLoggedIn(true);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const handleProtectedClick = (path) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      showToast("error", "Please login to continue.");
+    }
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -42,7 +71,7 @@ function Home() {
       </h1>
 
       <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-24 pb-12">
-        <Link to="/weather" className="w-full sm:w-[300px]">
+        <div onClick={() => handleProtectedClick("/weather")} className="w-full sm:w-[300px] cursor-pointer">
           <Card
             title={"Weather App"}
             image="/images/weather-forecast.png"
@@ -50,8 +79,8 @@ function Home() {
               "Get real-time weather updates and 5-day forecasts for any city. Save your favorite cities, view all saved locations, and delete them as needed."
             }
           />
-        </Link>
-        <Link to="/currency-converter" className="w-full sm:w-[300px]">
+        </div>
+        <div onClick={() => handleProtectedClick("/currency-converter")} className="w-full sm:w-[300px] cursor-pointer">
           <Card
             title={"Currency Converter"}
             image="/images/change.png"
@@ -59,8 +88,8 @@ function Home() {
               "Convert currencies instantly with accurate exchange rates and view conversion history. Add and delete favorite currencies for quick access."
             }
           />
-        </Link>
-        <Link to="/expensetracker" className="w-full sm:w-[300px]">
+        </div>
+        <div onClick={() => handleProtectedClick("/expensetracker")} className="w-full sm:w-[300px] cursor-pointer">
           <Card
             title={"Expense Tracker"}
             image="/images/expense.png"
@@ -68,7 +97,7 @@ function Home() {
               "Track and manage your travel expenses with ease. Add, edit, delete and view expenses by category or trip name to stay within your budget."
             }
           />
-        </Link>
+        </div>
       </div>
     </>
   );
