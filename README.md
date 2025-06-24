@@ -168,6 +168,8 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 
 - **Not Found Page (404)**
 
+- **Session Expired**
+
 ---
 
 ## 🧩 Components (Used in Above Pages)
