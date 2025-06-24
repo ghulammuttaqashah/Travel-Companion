@@ -59,11 +59,11 @@ function Header() {
       </h1>
 
       {/* Desktop Nav */}
-      <ul className="hidden md:flex space-x-8 items-center text-xl cursor-pointer font-semibold">
-        <li><Link to="/" className="hover:text-white transition">Home</Link></li>
-        <li><button onClick={() => handleProtectedNav("/weather")} className="hover:text-white transition">Weather</button></li>
-        <li><button onClick={() => handleProtectedNav("/currency-converter")} className="hover:text-white transition">Currency Converter</button></li>
-        <li><button onClick={() => handleProtectedNav("/expensetracker")} className="hover:text-white transition">Expense Tracker</button></li>
+      <ul className="hidden md:flex space-x-8 items-center text-xl font-semibold">
+        <li><Link to="/" className="hover:text-white transition cursor-pointer">Home</Link></li>
+        <li><button onClick={() => handleProtectedNav("/weather")} className="hover:text-white transition cursor-pointer">Weather</button></li>
+        <li><button onClick={() => handleProtectedNav("/currency-converter")} className="hover:text-white transition cursor-pointer">Currency Converter</button></li>
+        <li><button onClick={() => handleProtectedNav("/expensetracker")} className="hover:text-white transition cursor-pointer">Expense Tracker</button></li>
 
         {isLoggedIn ? (
           <li>
@@ -101,11 +101,11 @@ function Header() {
 
       {/* Mobile Nav */}
       {isMenuOpen && (
-        <ul className="absolute top-full left-0 w-full bg-[#243642] text-[#E2F1E7] flex flex-col items-center space-y-6 py-6 md:hidden z-10 text-xl font-medium shadow-md border-t border-[#243642] cursor-pointer">
-          <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-          <li><button onClick={() => handleProtectedNav("/weather")}>Weather</button></li>
-          <li><button onClick={() => handleProtectedNav("/currency-converter")}>Currency Converter</button></li>
-          <li><button onClick={() => handleProtectedNav("/expensetracker")}>Expense Tracker</button></li>
+        <ul className="absolute top-full left-0 w-full bg-[#243642] text-[#E2F1E7] flex flex-col items-center space-y-6 py-6 md:hidden z-10 text-xl font-medium shadow-md border-t border-[#243642]">
+          <li><Link to="/" onClick={toggleMenu} className="cursor-pointer">Home</Link></li>
+          <li><button onClick={() => handleProtectedNav("/weather")} className="cursor-pointer">Weather</button></li>
+          <li><button onClick={() => handleProtectedNav("/currency-converter")} className="cursor-pointer">Currency Converter</button></li>
+          <li><button onClick={() => handleProtectedNav("/expensetracker")} className="cursor-pointer">Expense Tracker</button></li>
 
           {isLoggedIn ? (
             <li>
