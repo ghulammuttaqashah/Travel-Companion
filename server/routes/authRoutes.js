@@ -41,14 +41,14 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
-    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '12h' });
+    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '50s' });
 
     // ✅ Send token in HTTP-only cookie
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'None',
-      maxAge: 12 * 60 * 60 * 1000 // 12 hours
+      maxAge: 50 * 1000 // 50s
     });
 
     res.json({ user: { name: user.name, email: user.email } });

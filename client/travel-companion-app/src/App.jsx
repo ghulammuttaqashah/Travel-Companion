@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import NotFound from "./pages/NotFound";
+import SessionExpired from "./pages/SessionExpired";
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/session-expired" element={<SessionExpired />} />
 
         {/* Protected Routes */}
         <Route path="/weather" element={<ProtectedRoute><Weather /></ProtectedRoute>} />

@@ -42,9 +42,9 @@ function Header() {
   return (
     <header className="bg-[#243642] text-[#E2F1E7] px-6 py-5 flex items-center justify-between relative shadow-md w-full z-20">
       {/* ✅ Responsive Padding for Title */}
-      <h1 className="text-3xl sm:text-4xl font-extrabold pl-4 sm:pl-4">
-        Travel Companion
-      </h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold px-2 text-center sm:text-left">
+  Travel Companion
+</h1>
 
       {/* Desktop Nav */}
       <ul className="hidden md:flex space-x-8 items-center text-xl font-semibold">

@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useToast } from '../components/ToastContext';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../services/axios';
-import Spinner from '../components/Spinner'; // ✅ Import your Spinner component
+import Spinner from '../components/Spinner';
 
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
@@ -19,18 +19,18 @@ const ProtectedRoute = ({ children }) => {
           setIsAuthenticated(true);
         }
       } catch (err) {
-        setIsAuthenticated(false);
-        if (!hasRedirected) {
-          showToast("error", "Login Please!");
+        // If user is not logged in (no cookie), show login-required toast
+        if (!hasRedirected && !document.cookie.includes("token")) {
+          showToast("error", "Please login first!");
           setHasRedirected(true);
         }
+        setIsAuthenticated(false);
       }
     };
 
     checkAuth();
   }, [hasRedirected, showToast]);
 
-  // ✅ Show Spinner while checking auth
   if (isAuthenticated === null) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
