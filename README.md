@@ -62,8 +62,8 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - npm install
 - npm start
 - Important Backend Packages:
-    -bcryptjs – for password hashing
-    -jsonwebtoken – for creating and verifying JWTs
+    -`bcryptjs – for password hashing`
+    -`jsonwebtoken – for creating and verifying JWTs`
     -cookie-parser – for handling HTTP-only cookies
     -express – server framework
     -mongoose – for MongoDB integration
