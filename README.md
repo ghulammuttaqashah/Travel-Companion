@@ -75,10 +75,10 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - cd client
 - npm install
 - npm run dev
-- Important Backend Packages:
-    -axios – for api calls
-    -tailwind CSS – for styles and UI.
-    -react-router – for navigating pages
+- **Important Frontend Packages:**
+  - `axios` – for API calls
+  - `tailwind CSS` – for styles and UI
+  - `react-router` – for navigating pages
 
 ## 🔐 Environment Variables
 ### 🔧 server/.env
