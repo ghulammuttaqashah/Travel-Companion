@@ -73,12 +73,13 @@ Travel Companion is a user-friendly web app designed to make traveling easier an
 - PORT=5000
 - MONGODB_URI=your_mongodb_connection_string
 - JWT_SECRET=your_jwt_secret
-- CLIENT_URL=http://localhost:5173
+- CLIENT_URL=your_react_app_url
 
 ### 🌐 client/.env
 #### env
 - REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 - REACT_APP_CURRENCY_API_KEY=your_exchange_rate_api_key
+- Vite_API_BASE_URL=your_server_url
   
 ---
 
